@@ -3,20 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"log"
 	"time"
 
 	e "github.com/matheusfrancisco/issue-protoc-protojure-grpc/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
-
-type Period struct {
-	FromDate time.Time //oldest
-	ToDate   time.Time //latest
-}
 
 func main() {
 	log.Println("Client running ...")
@@ -47,7 +40,7 @@ func main() {
 
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
-	request := &c.AuthRequest{
+	request := &e.AuthRequest{
 		Email: "matheusmachadoufsc@gmail.com",
 		Password:      "123123",
 	}
