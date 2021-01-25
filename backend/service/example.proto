@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package service.example.client;
+
+//option java_package = "br.com.example.service.client";
+//option java_multiple_files = true;
+
+service Example {
+  rpc Authenticate(AuthRequest) returns (AuthResponse);
+}
+
+message AuthRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthResponse {
+  string session_id = 1;
+}
