@@ -10,10 +10,10 @@ and [Protojure protoc-plugin](https://github.com/protojure/protoc-plugin/release
 
 #### Steps
 
-First you want to check your proto files and see the java_option, check it in `service/example.proto`.
+First you need to check your proto files and see the  `java_package` on `service/example.proto` uncommented it.
 
 Now, you run this command at your terminal `protoc --clojure_out=grpc-client,grpc-server:src --proto_path=. service/*.proto`
-and you'll see the folder generated with the java_option path which is `option java_package = "br.com.example.service.client";
+and you'll see the folder generated with the `java_package` path which is `option java_package = "br.com.example.service.client";
 `.
 
 Now you have to go to your golang client inside the folder `../go-client-grpc` and you must follow the steps there.
@@ -26,15 +26,14 @@ lein repl
 ```
 and using golang client to call clojure backend go to `../go-client` and
 run `go run main.go` and you'll see that doesn't work, because the client
-doesn't found the methdo.
+doesn't found the Authenticate method declared in proto files.
 
-
-to make this work you must remove `java_options` from proto file in `service/example.proto`
+to make this work you must remove `java_package` from proto file in `service/example.proto`
 and run protoc again..  `protoc --clojure_out=grpc-client,grpc-server:src --proto_path=. service/*.proto` and you'll see the 
 code create by protoc now will be in the namespace `service.example.client`, now you nee to go to `src/buzzlabs/backend/service.clj` and 
 comment the import `[br.com.example.service.client.Example.server :as example]`  and uncommented 
-`[service.example.client.Example.server :as example]` go to `src/buzzlabs/example/handler.clj` and to the same
-comment and uncomment the imports.
+`[service.example.client.Example.server :as example]` go to `src/buzzlabs/example/handler.clj` and do the same
+comment and uncomment the imports, run the repl `lein repl` and run the server `(go)`
 
 Now you go to `../go-client` and run go run main.go
 it'll be work fine.
@@ -42,7 +41,7 @@ it'll be work fine.
 
 ### Problem.
 
-I think the problem was when  use use the java_options  the pkg contains br.com.example and client golang called
+I think the problem was when  use use the java_package  the pkg contains br.com.example and client golang called
 `service.example.client/Authenticate`
 ```clojure
 (def ^:const rpc-metadata
@@ -56,7 +55,7 @@ I think the problem was when  use use the java_options  the pkg contains br.com.
     :output new-AuthResponse}])
 
 ```
-and when we comment and generated without java_options the rpc-metadata is. That's means is the same pkg that was
+and when we comment and generated without java_package the rpc-metadata is. That's means is the same pkg that was
 invoked by golang client.
 `service.example.client/Authenticate`
 
