@@ -1,5 +1,5 @@
 (ns buzzlabs.example.handler
-  (:require [br.com.example.service.client.Example.server :as example]
+  (:require [br.com.service.example.client.Example.server :as example]
             #_[service.example.client.Example.server :as example]
             [protojure.grpc.status :as status]
             [clojure.core.async :as async]

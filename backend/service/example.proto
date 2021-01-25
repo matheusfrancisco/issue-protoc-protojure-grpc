@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package service.example.client;
 
-//option java_package = "br.com.example.service.client";
-//option java_multiple_files = true;
+option java_package = "br.com.service.example.client";
+option java_multiple_files = true;
 
 service Example {
   rpc Authenticate(AuthRequest) returns (AuthResponse);
