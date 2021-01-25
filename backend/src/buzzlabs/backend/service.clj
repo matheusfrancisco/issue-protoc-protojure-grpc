@@ -1,6 +1,6 @@
 (ns buzzlabs.backend.service
-  (:require #_[br.com.example.service.client.Example.server :as example]
-            [service.example.client.Example.server :as example]
+  (:require [br.com.example.service.client.Example.server :as example]
+            #_[service.example.client.Example.server :as example]
             [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
             [io.pedestal.http.body-params :as body-params]
